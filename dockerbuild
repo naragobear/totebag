@@ -1,0 +1,15 @@
+touch /var/log/docker.log
+echo "~~~~~~~~~~~~~~~~ ALL DOCKER OUTPUT GOES HERE ~~~~~~~~~~~~~~~~~" >> /var/log/docker.log
+echo "~~~~~~~~~~ BUILD BEGAN AT $(date) ~~~~~~~~~~~" >> /var/log/docker.log
+start=$(date +%s)
+wd=$2
+# if [ $wd = "" ]; then
+# 	$wd="."
+# fi
+
+docker build -t $1 . >> /var/log/docker.log
+end=$(date +%s)
+SECONDS=$(echo "$end - $start" | bc)
+echo "BUILD RAN FOR $SECONDS s" >> /var/log/docker.log
+# docker run -d -p 9000:$3 $1
+
